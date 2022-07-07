@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool memo(string s1, string s2, string s3, vector<vector<int>>& dp, int i, int j)
+    {
+            if(i== s1.length() && j == s2.length()) return true;
+            if(dp[i][j] != 0)
+            {
+                    return (dp[i][j]) == 1?true:false;
+            }
+            if(i  < s1.size() && s1[i] == s3[i + j])
+            {
+                  
+                          bool f1 = memo(s1, s2, s3, dp, i+1, j); 
+                  if(f1 == true)  dp[i][j] = 1;
+                    else dp[i][j] = -1;
+                            if(f1 == true)
+                            {
+                                    
+                                    return true;
+                                    
+                            }
+                  
+            }
+            if(j  < s2.size() && s2[j] == s3[i + j])
+            {
+                
+                            bool f2 = memo(s1, s2, s3, dp, i, j+1); 
+                                   if(f2 == true)dp[i][j] = 1;
+                    else dp[i][j] = -1;
+                            if(f2 == true)
+                            {
+                                 
+                                    return true;
+                                    
+                            }
+                
+            }
+            dp[i][j] = -1;
+            return false;
+    }
+    bool isInterleave(string s1, string s2, string s3) {
+            int n1 = s1.length(), n2 = s2.length();
+        vector<vector<int>>dp(n1 + 1, vector<int>(n2 + 1));
+            return memo(s1, s2, s3, dp, 0, 0);
+            
+    }
+};
