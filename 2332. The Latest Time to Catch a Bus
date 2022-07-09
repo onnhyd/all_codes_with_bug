@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int latestTimeCatchTheBus(vector<int>& buses, vector<int>& passengers, int capacity) {
+            sort(passengers.begin(), passengers.end());
+            sort(buses.begin(), buses.end());
+            int b = buses.size();
+            int p = passengers.size();
+            int p1 = 0, p2 =0, prev = 0, prev2 =0;
+            int temp = capacity;
+            set<int>s;
+            s.insert(passengers[0]);
+            //[3]
+            //[2,3]
+            //2
+            while(p1 < b && p2 < p)
+            {
+                    if(passengers[p2]<=buses[p1] && temp > 0)
+                    {
+                            
+                            prev2 = p2;
+                            s.insert(passengers[p2]);
+                            p2++;
+                            
+                            temp --;
+                    }
+                    else{
+                            prev = p1;
+                            p1++;
+                           if(p1 < b) temp = capacity;
+                    }
+            }
+            int i;
+            if(temp) i = buses[prev];
+            else i = passengers[prev2]-1;
+            while(i> passengers[0])
+            {
+                 if(s.find(i) == s.end())   return i;
+                    else i--;
+            }
+            return min(passengers[0] -1, buses[p1]);
+        
+    }
+};
