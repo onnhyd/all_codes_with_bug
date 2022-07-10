@@ -1,0 +1,47 @@
+class Solution {
+  public:
+    vector<Node*> findAnagrams(struct Node* head, string s) {
+        // code here
+        // unordered_map<char,int>m;
+        vector<Node*> ans;
+        vector<int>m(26);
+        for(auto &c : s)
+        {
+            m[c-'a']+=1;
+        }
+       
+        while(head)
+        {
+            char c = head->data;
+             
+            if(m[c-'a']>=1)
+            {
+                vector<int>copy = m;
+                // cout<<accumulate(copy.begin(), copy.end(), 0)<<endl;
+                Node* ptr = head;
+                Node* ptr1 = head;
+                Node* ptr2 = head;
+                while(ptr){
+                    char ch = ptr->data;
+                    if(copy[ch-'a']>0){
+                        copy[ch - 'a']--;
+                    ptr = ptr->next;
+                    ptr1->next=ptr;
+                    ptr1 = ptr1 -> next;
+                    }
+                    else{
+                            if(accumulate(copy.begin(), copy.end(), 0) == 0)
+                            {
+                                ans.push_back(ptr2);
+                                break;
+                            }
+                            else break;
+                    } 
+                    
+                }
+            }
+            head = head -> next;
+        }
+        return ans;
+    }
+};
