@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool canChange(string s, string t) {
+            int n1 = s.size();
+            int n2 = t.size();
+            if(n1 == 0 && n2 == 0)return true;
+            
+        int ptrs, ptrt, c_b =0;
+            while(s[ptrs] == '_')ptrs++;
+            while(t[ptrt] == '_')ptrt++;
+            if(ptrs >= n1 && ptrt>= n2)return true;
+            if(s[ptrs] != t[ptrt])return false;
+            if(s[ptrs] == 'L'){
+                    if(ptrt>ptrs)return false;
+                    int d = ptrs - ptrt;
+                    while(d)
+                    {
+                            if(t[ptrt + 1] == '_')
+                            {
+                                    ptrt++;
+                                    d--;
+                            }
+                            else return false;
+                            
+                    }
+            }
+            if(s[ptrs] == 'R'){
+                    if(ptrt<ptrs)return false;
+                    int d = ptrt - ptrs;
+                    while(d)
+                    {
+                            if(t[ptrt - 1] == '_')
+                            {
+                                    ptrt--;
+                                    d--;
+                            }
+                            else return false;
+                            
+                    }
+            }
+            return canChange(s.substr(ptrs), t.substr(ptrt));
+    }
+};
