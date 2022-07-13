@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    int assignmentProblem(int Arr[], int N) {
+        vector<int>mini(N, INT_MAX);
+        for(int i = 0; i< N*N ; i+=N)
+        {
+            for(int j = 0 ; j < N ;j++)
+            {
+                int e = Arr[i + j];
+                //cout<<e<<" ";
+                if(e < mini[j])mini[j] = e;
+            }
+        }
+        //cout<<endl;
+        int ans = accumulate(mini.begin(), mini.end(), 0);
+        return ans;
+        
+    }
+};
