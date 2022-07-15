@@ -1,0 +1,18 @@
+priority_queue<int>maxh;
+        for(int i = 0; i < n; i++)maxh.push(arr[i]);
+        long long int ans, ans1 = 0, ans2 = 0;
+        if(n%2 != 0) maxh.push(0);
+            int  p = 0;
+            while(maxh.size())    
+            {
+                int top1 = maxh.top();
+                maxh.pop();
+                int top2 = maxh.top();
+                maxh.pop();
+                ans1 = top1 * pow(10, p) + ans1;
+                ans2 = top2 * pow(10, p) + ans2;
+                p++;
+            }
+        
+        ans = ans1 + ans2;
+        return ans;
