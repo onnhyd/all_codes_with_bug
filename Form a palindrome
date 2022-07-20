@@ -13,3 +13,24 @@
      int n = 0;
      return m - lcs(str, str, m - 1, n );
     }
+
+    /................................../
+      int lcs(string a, string b, int m, int n,vector<vector<int>>& memo)
+  {
+      if(m < 0 ||n >= a.size())return 0;
+      if(memo[m][n] != -1) return memo[m][n];
+      if(a[m] == b[n])return memo[m][n] = 1 + (lcs(a, b, m - 1, n + 1, memo));
+      else{
+          return memo[m][n] =  max(lcs(a, b, m, n + 1, memo), lcs(a, b, m - 1, n, memo));
+      }
+  }
+    int countMin(string str){
+    //     string copy = str;
+    //  std::reverse(copy.begin(), copy.end());
+    int m = str.size();
+     int n = 0;
+    vector<vector<int>>memo(m + 1, vector<int>(m + 1, -1));
+     //cout<<m<<endl;
+     return m - lcs(str, str, m - 1, n, memo );
+    }
+};
