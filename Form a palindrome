@@ -1,0 +1,15 @@
+ int lcs(string a, string b, int m, int n)
+  {
+      if(m < 0 ||n >= a.size())return 0;
+      if(a[m] == b[n])return 1 + (lcs(a, b, m - 1, n + 1));
+      else{
+          return min(lcs(a, b, m, n + 1), lcs(a, b, m - 1, n));
+      }
+  }
+    int countMin(string str){
+    //     string copy = str;
+    //  std::reverse(copy.begin(), copy.end());
+     int m = str.size();
+     int n = 0;
+     return m - lcs(str, str, m - 1, n );
+    }
