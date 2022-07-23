@@ -1,0 +1,32 @@
+class NumberContainers {
+public:
+    NumberContainers() {
+        
+    }
+    unordered_map<int, int>mp;
+        int maxIndex = 0;
+        priority_queue<int, vector<int>, greater<int>>Set;
+    void change(int index, int number) {
+        mp[index] = number;
+            if(index > maxIndex)maxIndex = index;
+            Set.push(index);
+    }
+    
+    int find(int number) {
+           priority_queue<int, vector<int>, greater<int>>Set2 = Set;
+            while(Set2.size())
+            {
+                    int curr = Set2.top();
+                    Set2.pop();
+                    if(mp[curr] == number)return curr;
+            }                    
+            return -1;
+    }
+};
+
+/**
+ * Your NumberContainers object will be instantiated and called as such:
+ * NumberContainers* obj = new NumberContainers();
+ * obj->change(index,number);
+ * int param_2 = obj->find(number);
+ */
