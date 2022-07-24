@@ -1,0 +1,47 @@
+class FoodRatings {
+public:
+        vector<string>foodi;
+        vector<string>couisinei;
+        vector<int>ratingi;
+        int n;
+    FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {
+         n = foods.size();
+            for(int i = 0; i < n; i++)
+            {
+                    foodi.push_back(foods[i]);
+                    couisinei.push_back(cuisines[i]);
+                    ratingi.push_back(ratings[i]);
+            }
+    }
+    
+    void changeRating(string food, int newRating) 
+    {
+        for(int i = 0; i < n; i++)    
+        {
+                if(foodi[i] == food)
+                {
+                        ratingi[i] = newRating;
+                }
+        }
+    }
+    
+    string highestRated(string cuisine) {
+        int highestRate = 0;
+            string highestRatedFood;
+            for(int i = 0; i < n ; i++)
+            {
+                    if(couisinei[i] == cuisine)
+                    {
+                            if(ratingi[i] > highestRate){
+                                    highestRate = ratingi[i];
+                                   highestRatedFood = foodi[i];
+                            }
+                            else if(ratingi[i] == highestRate)
+                            {
+                                    if(foodi[i] < highestRatedFood) highestRatedFood = foodi[i];
+                            }
+                    }
+            }
+            return highestRatedFood;
+    }
+};
