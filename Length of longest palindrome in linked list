@@ -1,0 +1,49 @@
+int k;
+int prev, ans;
+int memo[101][101];
+//int memon[100];
+int lcs(int list[], int n, int m)
+{
+    
+    if(m >= k || n < 0)return 0;
+    if(memo[m][n] != -1)
+    {
+        return memo[m][n];
+    }
+    if(list[m] == list[n])
+    {
+        prev++;
+        ans = max(ans, prev);
+        
+        return memo[m][n] = 1 + lcs(list, n - 1, m + 1);
+    }
+    else{
+        prev = 0;
+        return memo[m][n] = max(lcs(list, n -1, m), lcs(list, n, m + 1));
+    }
+}
+int maxPalindrome(Node *head)
+{
+    int list[100];
+    int n = 0;
+    while(head)
+    {
+        list[n] = (head -> data);
+        head = head -> next;
+        n++;
+    }
+    k = n;
+    //cout<<k<<endl;
+    prev = 0;
+    ans = 0;
+    for(int i = 0; i <= 100; i++)
+    {
+        for(int j = 0; j <= 100; j++)
+        {
+            memo[i][j] = -1;
+        }
+        
+    }
+    int LCS = lcs(list, n - 1, 0);
+    return ans;
+}
