@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int maximumGroups(vector<int>& grades) {
+            
+        int l, t, cs = -1 , bm = -1, sz = 1, ans = 0, n = grades.size();
+            if(n == 0)return ans;
+            priority_queue<int, vector<int>, greater<int>> minh;
+            for(auto &grade : grades)
+            {
+                    t += grade;
+                    minh.push(grade);                    
+            }
+            l = 0;
+            bool f = false;
+            while(minh.size() > 0)
+            {
+                    
+                   while(minh.size() && cs <= bm)
+                   {
+                           if(f == false)
+                           {
+                                   cs++;
+                                   f = true;
+                           }
+                           cs += minh.top();
+                           minh.pop();
+                           sz++;
+                   }                    
+                    while(sz <= l)
+                    {
+                          if(!minh.size())return ans;
+                          cs += minh.top();
+                           minh.pop();
+                           sz++;
+                            
+                    }
+                    if(cs>bm)
+                    {
+                            bm = cs;
+                            cs = 0;
+                            ans++;
+                            l = sz;
+                    }
+                    else return ans;
+                    
+                    
+            }
+            
+            return ans;
+    }
+};
