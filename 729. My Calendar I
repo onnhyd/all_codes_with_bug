@@ -1,0 +1,19 @@
+class MyCalendar {
+public:
+    //unordered_map<int, int>mp;
+        vector<vector<int>>v;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int start, int end) {
+        for(auto &it : v)
+        {
+           if(start >= it[0] &&start <it[1])return false;
+           if(end > it[0] && end <= it[1])return false;         
+               // if(end > it[0] && start < it[1])return false;
+        }
+            v.push_back({start, end});
+            return true;
+    }
+};
