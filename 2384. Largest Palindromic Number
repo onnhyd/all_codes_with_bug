@@ -1,0 +1,179 @@
+class Solution {
+public:
+    string largestPalindromic(string num) {
+            int zeroFreq =0, maxOddFreq = 0, evenFreq = 0;
+            char oddChar = '*';
+            queue<char>even;
+           // stack<char>odd;
+            vector<char>v;
+           map<char, int>Freq;
+            //unordered_set<char>S;
+            for(auto &c : num)
+            {
+                    Freq[c]++;
+                    //S.insert(c);
+            }
+            for(auto &it : Freq)
+            {
+                    char key = it.first;
+                    int  val = it.second;
+                    v.push_back(key);
+                    if(key == '0')zeroFreq = val;
+                    else{
+                            if(val % 2)
+                            {
+                                    cout<<val<<" "<<maxOddFreq<<" "<< oddChar<<endl;
+                                    if(val >= maxOddFreq)
+                                    {
+                                            
+                                            maxOddFreq = val;
+                                            oddChar = key;
+                                    }
+                                    // oddFreq += val;
+                                    // odd.push(key);
+                            }
+                            else{
+                                    evenFreq += val;
+                                    even.push(key);
+                            }
+                    }
+            }
+            queue<char>left;
+            stack<char>right;
+            //bool f;
+            int sz = even.size();
+            while(even.size())
+            {
+                    //f = true;
+                    char top = even.front();
+                    even.pop();
+                    int tFreq = Freq[top];
+                    for(int i = 0; i < tFreq / 2; i++)
+                    {
+                            left.push(top);
+                            right.push(top);
+                            //cout<<top<<" ";
+                    }
+                    
+            }
+            if(sz)
+            {
+                    if(zeroFreq &&zeroFreq % 2 == 0) even.push('0');
+            }
+            
+            while(even.size())
+            {
+                    char top = even.front();
+                    even.pop();
+                    int tFreq = Freq[top];
+                    
+                    for(int i = 0; i < tFreq / 2; i++)
+                    {
+                            left.push(top);
+                            right.push(top);
+                            //cout<<top<<" ";
+                    }
+                    
+            }
+            if(sz && zeroFreq > maxOddFreq)
+            {
+                    maxOddFreq = zeroFreq;
+                    oddChar = '0';
+            }
+            for(int i = 0; i < maxOddFreq / 2; i++)
+            {
+                    left.push(oddChar);
+                    right.push(oddChar); 
+            }
+            if(oddChar != '*')
+            {
+                    left.push(oddChar);
+                    //cout<<left.size()<<endl;
+            }
+            
+            string str = "";
+            while(left.size())
+            {
+                    //cout<<top<<" ";
+                    char top = left.front();
+                    cout<<top<<" ";
+                    left.pop();
+                    str += top;
+            }
+            while(right.size())
+            {
+                    
+                    char top = right.top();
+                    //cout<<top<<" ";
+                    right.pop();
+                    str += top;
+            }
+            //cout<<oddChar<<" ";
+            // for(auto &it : v)
+            //         cout<<it<<" ";
+            return str;
+            
+//         int zeros = 0, maxOdd = 0, evens = 0, n = 0;
+//             bool f = false;
+//             stack<char>even;
+//             stack<char>odd;
+//             stack<char>zero;
+//             unordered_map<char, int>mp;
+//             for(auto &c : num)
+//             {
+//                     mp[c]++;
+//                     if(c == '0')zeros++;
+//             }
+//             for(auto &it : mp)
+//             {
+                    
+//                     if(it.second % 2)
+//                     {
+//                             if(it == '0')
+//                             {
+//                                     zero.push('0');
+//                             }
+//                             else odd.push(it.first);
+//                             if(it.second > maxOdd &&it.first != '0')maxOdd = it.second;
+//                     }
+//                     else{
+//                              if(it == '0')
+//                             {
+//                                     zero.push('0');
+//                             }
+//                             else even.push(it.first);
+//                             evens += it.second;
+//                             if(it.first != '0')f = true;
+//                     }
+//             }
+//             if(!f)
+//             {
+//                     if(zeros % 2 == 0)
+//                     {
+//                             evens -= zeros;
+//                     }
+                    //return to_string(maxOdd);
+                    // if(zeros % 2 && maxOdd == zeros)
+                    // {
+                    //         if()
+                    // }
+//             }
+//             else{
+//                     if(zeros % 2 && zeros > maxOdd)
+//                     {
+//                             maxOdd = zeros;
+//                     }
+                    
+                    
+//             }
+//             n = (evens + maxOdd);
+//             string str(n, '*');
+//             int s = 0, e = n - 1;
+//             while(evens)
+//             {
+                    
+//             }
+            
+            
+    }
+};
