@@ -1,0 +1,55 @@
+class Solution {
+public:
+set<string>st;
+        bool isValid(string curr)
+        {
+                if(curr[0] == '0')return false;
+                if(curr.size() == 1)   
+                {
+                        if(curr[0] > '0' && curr[0]<='9')return true;
+                }
+                if(curr.size() == 2)
+                {
+                        if(curr > "00" && curr < "27")return true;
+                }
+                return false;
+        }
+void help(string prev, int p, int n, string s)
+{
+        if(p >= n)
+        {
+                st.insert(prev);                
+        }
+        string curr = "";
+        curr += s[p];
+        
+        
+        prev += s[p];
+        
+        if(isValid(curr))
+        {
+                help(prev+"-", p + 1, n, s);
+        }
+        
+       if(p + 1 < n) 
+       {
+                curr += s[p + 1];
+                prev += s[p + 1];//
+
+                if(isValid(curr))
+                {
+                        help(prev+"-", p + 2, n, s);
+                }
+        
+       }
+       
+        
+
+}
+    int numDecodings(string s) {
+        int p = 0, n = s.size();
+            string prev = "";
+            help(prev, p, n, s);
+            return st.size();
+    }
+};
