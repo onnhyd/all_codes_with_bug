@@ -1,0 +1,39 @@
+ int numIslands(vector<vector<char>>& grid) {
+        int count=0;
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<bool>> vi(n, vector<bool>(m, false));
+        
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(!vi[i][j] && grid[i][j]=='1'){
+                    queue<pair<int,int>> q;
+                    q.push({i,j});
+                    vi[i][j]=true;
+                    while(!q.empty()){
+                        pair<int, int> frt = q.front();
+                        int x = frt.first, y = frt.second;
+                        q.pop();
+                        if(x-1>=0 && !vi[x-1][y] && grid[x-1][y]=='1'){
+                            q.push({x-1, y});
+                            vi[x-1][y] = true;
+                        }
+                        if(y+1<m && !vi[x][y+1] && grid[x][y+1]=='1'){
+                            q.push({x, y+1});
+                            vi[x][y+1] = true;
+                        }
+                        if(x+1<n && !vi[x+1][y] && grid[x+1][y]=='1'){
+                            q.push({x+1, y});
+                            vi[x+1][y] = true;
+                        }
+                        if(y-1>=0 && !vi[x][y-1] && grid[x][y-1]=='1'){
+                            q.push({x, y-1});
+                            vi[x][y-1] = true;
+                        }
+                    }
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
