@@ -1,55 +1,49 @@
 class Solution {
 public:
-set<string>st;
-        bool isValid(string curr)
-        {
-                if(curr[0] == '0')return false;
-                if(curr.size() == 1)   
-                {
-                        if(curr[0] > '0' && curr[0]<='9')return true;
-                }
-                if(curr.size() == 2)
-                {
-                        if(curr > "00" && curr < "27")return true;
-                }
-                return false;
-        }
-void help(string prev, int p, int n, string s)
-{
-        if(p >= n)
-        {
-                st.insert(prev);                
-        }
-        string curr = "";
-        curr += s[p];
-        
-        
-        prev += s[p];
-        
-        if(isValid(curr))
-        {
-                help(prev+"-", p + 1, n, s);
-        }
-        
-       if(p + 1 < n) 
-       {
-                curr += s[p + 1];
-                prev += s[p + 1];//
-
-                if(isValid(curr))
-                {
-                        help(prev+"-", p + 2, n, s);
-                }
-        
-       }
-       
-        
-
-}
     int numDecodings(string s) {
-        int p = 0, n = s.size();
-            string prev = "";
-            help(prev, p, n, s);
-            return st.size();
+        if(s.length()==0 || s[0]=='0')
+        {
+            return 0;
+        }
+        if(s.length()==1)
+        {
+            return 1;
+        }
+        vector<int> dp(s.size(),-1);
+        int n = s.size()-1;
+        int ans = helper(s,n,dp);
+        return ans;
+    }
+    int helper(string s,int n,vector<int>& dp)
+    {
+        if(n<0)
+            return 0;
+        else if(n==0 and s[n]!='0')
+            return 1;
+        if(dp[n]!=-1)
+            return dp[n];
+        int nm1 = helper(s,n-1,dp);
+        int nm2 = helper(s,n-2,dp);
+        int d1 = s[n]-'0';
+        int d2 = s[n-1]-'0';
+        int num = d2*10 + d1;
+        if(d1 == 0 and d2 ==0)
+            return dp[n] = 0;
+        else if(d2 == 0 and d1 != 0)
+            return dp[n] =nm1;
+        else if(d2 != 0 and d1 == 0){
+            if(d2 == 1 || d2 == 2)
+                return dp[n] = (n >= 2 ? nm2 : 1);
+            else
+                return dp[n] = 0;
+        }
+        else{ 
+            if(num<=26)
+                return dp[n] = (nm1 + (n>=2 ? nm2 : 1));  
+            else{
+                return dp[n] = nm1;
+            }
+        }
+        return 0;
     }
 };
