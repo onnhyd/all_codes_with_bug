@@ -1,0 +1,38 @@
+
+I have reviewed your code and made the require changes. the issue was that  the constraint on a[i] goes upto 1e9;
+The max array that you have declared is initialized with 1e9 elements which takes up alot of memory and thus kills the program.
+Instead your could've used maps to store 1e5 elements individually, otherwise your code is perfect.
+class Solution{
+public:
+   #define ll long long
+
+    vector<long long> smallerSum(int n,vector<int> &arr){
+        int mx = INT_MIN;
+        priority_queue<int, vector<int>, greater<int>>pq;
+        for(auto &it : arr)
+        {
+            if(it > mx)mx = it;
+            pq.push(it);
+        }
+       map<ll,ll>mp;
+       for(auto i : arr){
+           mp[i] = -1;
+       }
+        ll sum = 0;
+        while(pq.size())
+        {
+            int t = pq.top();
+            pq.pop();
+            
+           if(mp[t] == -1) mp[t] = (ll)sum;
+            sum += (t *1LL);
+        }
+        vector<long long>ans;
+        for(auto &it : arr)
+        {
+            ans.push_back(mp[it] *1LL);
+        }
+        return ans;
+        
+    }
+};
