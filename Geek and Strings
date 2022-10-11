@@ -1,0 +1,68 @@
+class TrieNode{
+    public:
+    
+    bool isEnd;
+    TrieNode* child[26];
+    int k;
+    TrieNode(){
+        isEnd = false;
+        k = 0;
+        for(int i = 0; i < 26; i++)
+        {
+            child[i] = NULL;
+        }
+    }
+   
+};
+
+class Solution{
+public:
+    vector<int> prefixCount(int N, int Q, string li[], string query[])
+    {
+        // code here
+        TrieNode* root;
+        root = new TrieNode();
+        
+        for(int i = 0; i < N; i++)
+        {
+            string s = li[i];
+            TrieNode* node = root;
+            for(int j = 0; j < s.size(); j++)
+            {
+                int ind = s[j] - 'a';
+                if(!node -> child[ind])
+                {
+                    node -> child[ind] = new TrieNode();
+                }
+                //node -> child[ind] -> k++;
+                node->k++;
+                node=node->child[ind];
+                
+            }
+            node->k++;
+            node -> isEnd = true;
+        }
+        vector<int> ans(Q,0);
+        for(int i = 0; i < Q; i++)
+        {
+            string s = query[i];
+            //int curr;
+            TrieNode* node = root;
+            //curr = node -> child[s[0] - 'a'] -> k;
+            int j;
+            for(j = 0; j < s.size(); j++ )
+            {
+                int ind = s[j] - 'a';
+                if(node -> child[ind] == NULL) {
+                    ans[i] = 0;
+                    break;
+                }
+                node = node -> child[ind];
+            }
+            
+            if(j==s.size()) ans[i]=node->k;
+            
+        }
+        return ans;
+    }
+};
