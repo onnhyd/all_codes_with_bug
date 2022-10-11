@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool found;
+    vector<vector<int>>visited;
+    void checkIfExist(int i, int j, vector<int>& nums)
+    {
+        if(found == true || j - i < 2 || visited[i][j] != 0)return;
+        visited[i][j] = 1;
+        int l = nums[i], r = nums[j];
+        for(int m = i + 1; m < j; m++)
+        {
+            int mid = nums[m];
+            if(mid > l && mid < r)
+            {
+                found = true;
+                return;
+            }
+        }
+        checkIfExist(i - 1, j, nums);
+        
+        checkIfExist(i, j - 1, nums);
+        
+        checkIfExist(i - 1, j - 1, nums);
+        
+    }
+    bool increasingTriplet(vector<int>& nums) {
+        int n = nums.size(), i = 0, k = n - 1;// two pointer i and k are on the left-most and right-most positions 
+        found = false;
+        visited.resize(n, vector<int>(n, 0));
+        checkIfExist(i, k, nums);
+        return found;
+    }
+};
