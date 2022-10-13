@@ -4,6 +4,8 @@ public:
     vector<vector<int>>visited;
     void checkIfExist(int i, int j, vector<int>& nums)
     {
+        if(i<0 || j<0)
+            cout<<"found neg"<<i<<j;
         if(found == true || j - i < 2 || visited[i][j] != 0)return;
         visited[i][j] = 1;
         int l = nums[i], r = nums[j];
@@ -16,11 +18,11 @@ public:
                 return;
             }
         }
-        checkIfExist(i - 1, j, nums);
+        checkIfExist(i + 1, j, nums);
         
         checkIfExist(i, j - 1, nums);
         
-        checkIfExist(i - 1, j - 1, nums);
+        checkIfExist(i + 1, j - 1, nums);
         
     }
     bool increasingTriplet(vector<int>& nums) {
