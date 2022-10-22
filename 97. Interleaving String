@@ -25,3 +25,5 @@ public:
         return T[M][N];
     }
 };
+
+// in this problem i have simply used the campare approach but also mentained the time complexity of the code .
