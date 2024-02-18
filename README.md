@@ -1,2 +1,2 @@
 # all_codes_with_bug
-In this repository I will add all my code those I find correct but are not working somehow.
+In this repository I will add all my code which I think correct but are not working somehow.
